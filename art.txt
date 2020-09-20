@@ -1,84 +1,84 @@
 12345678911111111112222222222
          01234567890123456789
 
-              /\          
-             /  \          
-    |\       \  /       /|  
-    | \  |\  _||_  /|  / |  
-    |  \_| \/    \/ |_/  |  
-    \                    / 
-    /___              ___\ 
-        \___      ___/      
-            \____/          
+#define 1COROA      "          /\          "
+#define 2COROA      "         /  \         "
+#define 3COROA      "|\       \  /       /|"
+#define 4COROA      "| \  |\  _||_  /|  / |" 
+#define 5COROA      "|  \_| \/    \/ |_/  |"
+#define 6COROA      "\                    /"
+#define 7COROA      "/___              ___\"
+#define 8COROA      "    \___      ___/    " 
+#define 9COROA      "        \____/        " 
 
 
 
-     /\
-    /  \
-    \  /_____
-     ||\     \_____
-     || \          \______
-     || |             ___/
-     <> |        ____/
-     || /  _____/
-     ||/__/               
+#define 1ESTANDARTE " /\                   "
+#define 2ESTANDARTE "/  \                  "
+#define 3ESTANDARTE "\  /_____             "
+#define 4ESTANDARTE " ||\     \_____       "
+#define 5ESTANDARTE " || \          \______"
+#define 6ESTANDARTE " || |             ___/"
+#define 7ESTANDARTE " <> |        ____/    "
+#define 8ESTANDARTE " || /  _____/         "
+#define 9ESTANDARTE " ||/__/               "
 
 
 
-     ______        ______
-    /      \__/\__/      \
-    \                    /
-     |                  |
-     |                  |
-      \                /
-       |              |
-        \__        __/
-           \______/       
+#define 1ESCUDO     " ______        ______ "
+#define 2ESCUDO     "/      \__/\__/      \"
+#define 3ESCUDO     "\                    /"
+#define 4ESCUDO     " |                  | "
+#define 5ESCUDO     " |                  | "
+#define 6ESCUDO     "  \                /  "
+#define 7ESCUDO     "   |              |   "
+#define 8ESCUDO     "    \__        __/    "
+#define 9ESCUDO     "       \______/       "
 
 
 
-              <> 
-           ___||___
-           \______/
-             |  |
-             |  |
-             |  |
-             |  |
-             \  /
-              \/               
+#define 1ESPADA     "          <>          "
+#define 2ESPADA     "       ___||___       "
+#define 3ESPADA     "       \______/       "
+#define 4ESPADA     "         |  |         "
+#define 5ESPADA     "         |  |         "
+#define 6ESPADA     "         |  |         "
+#define 7ESPADA     "         |  |         "
+#define 8ESPADA     "         \  /         "
+#define 9ESPADA     "          \/          "     
 
 
 
-    /\\\\\/////\_
-    \\\\\\\/)\\\\\
-    ///       \\\\\___
-    \\\  /_     \\\\\\\__
-    // \      \    \\\\\\\
-    \   \     |       \\\\
-    /    \    |\_       \\
-          \.  |  \       \
-           \__/   |______|
+#define 1CAVALEIRO  "/\\\\\/////\_         "
+#define 2CAVALEIRO  "\\\\\\\/)\\\\\        "
+#define 3CAVALEIRO  "///       \\\\\___    "
+#define 4CAVALEIRO  "\\\  /_     \\\\\\\___"
+#define 5CAVALEIRO  "// \      \    \\\\\\\"
+#define 6CAVALEIRO  "\   \     |       \\\\"
+#define 7CAVALEIRO  "/    \    |\_       \\"
+#define 8CAVALEIRO  "      \.  |  \       \"
+#define 9CAVALEIRO  "       \__/   |______|"
 
 
 
-     _____    __    _____
-    /     \__/  \__/     \
-    |                    |
-    |                    |
-    |     ___.__.__      |
-    \____/  \|  |/ \_____/
-             |  |
-             |  |
-             |__|
+#define 1MARTELO    " _____    __    _____ "
+#define 2MARTELO    "/     \__/  \__/     \"
+#define 3MARTELO    "|                    |"
+#define 4MARTELO    "|                    |"
+#define 5MARTELO    "|     ___.__.__      |"
+#define 6MARTELO    "\____/  \|  |/ \_____/"
+#define 7MARTELO    "         |  |         "
+#define 8MARTELO    "         |  |         "
+#define 9MARTELO    "         |__|         "
 
 
 
-    _         <>         _  
-   //  _____  ||  _____  \\
-   \\_/  __ \_||_/ __  \_//
-    \___/  \_    _/  \___/
-      |      \  /      |
-     / \      ||      / \
-    /___\     ||     /___\
-    \___/    _||_    \___/         
-            /____\
+#define 1BALANCA    " _        <>        _ " 
+#define 2BALANCA    "//  ____  ||  ____  \\"
+#define 3BALANCA    "\\_/  _ \_||_/ _  \_//"
+#define 4BALANCA    " \___/ \_    _/ \___/ "
+#define 5BALANCA    "   |     \  /     |   "
+#define 6BALANCA    "  / \     ||     / \  "
+#define 7BALANCA    " /___\    ||    /___\ "
+#define 8BALANCA    " \___/   _||_   \___/ "        
+#define 9BALANCA    "        /____\        "
