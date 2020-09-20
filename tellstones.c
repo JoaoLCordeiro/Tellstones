@@ -19,7 +19,7 @@
 #define 6COROA      "\\                    /"
 #define 7COROA      "/___              ___\\"
 #define 8COROA      "    \\___      ___/    "
-#define 9COROA      "        \\____/        "
+#define 9COROA      "        \\____/        "  
 
 #define 1ESTANDARTE " /\\                   "
 #define 2ESTANDARTE "/  \\                  "
@@ -29,7 +29,7 @@
 #define 6ESTANDARTE " || |             ___/"
 #define 7ESTANDARTE " <> |        ____/    "
 #define 8ESTANDARTE " || /  _____/         "
-#define 9ESTANDARTE " ||/__/               "
+#define 9ESTANDARTE " ||/__/               "  
 
 #define 1ESCUDO     " ______        ______ "
 #define 2ESCUDO     "/      \\__/\\__/      \\"
@@ -39,7 +39,7 @@
 #define 6ESCUDO     "  \\                /  "
 #define 7ESCUDO     "   |              |   "
 #define 8ESCUDO     "    \\__        __/    "
-#define 9ESCUDO     "       \\______/       "
+#define 9ESCUDO     "       \\______/       "  
 
 #define 1ESPADA     "          <>          "
 #define 2ESPADA     "       ___||___       "
@@ -59,7 +59,7 @@
 #define 6CAVALEIRO  "\\   \\     |       \\\\\\\\"
 #define 7CAVALEIRO  "/    \\    |\\_       \\\\"
 #define 8CAVALEIRO  "      \\.  |  \\       \\"
-#define 9CAVALEIRO  "       \\__/   |______|"
+#define 9CAVALEIRO  "       \\__/   |______|"            
 
 #define 1MARTELO    " _____    __    _____ "
 #define 2MARTELO    "/     \\__/  \\__/     \\"
@@ -69,7 +69,7 @@
 #define 6MARTELO    "\\____/  \\|  |/ \\_____/"
 #define 7MARTELO    "         |  |         "
 #define 8MARTELO    "         |  |         "
-#define 9MARTELO    "         |__|         "
+#define 9MARTELO    "         |__|         "   
 
 #define 1BALANCA    " _        <>        _ "
 #define 2BALANCA    "//  ____  ||  ____  \\\\"
@@ -79,7 +79,7 @@
 #define 6BALANCA    "  / \\     ||     / \\  "
 #define 7BALANCA    " /___\\    ||    /___\\ "
 #define 8BALANCA    " \\___/   _||_   \\___/ "
-#define 9BALANCA    "        /____\\        "
+#define 9BALANCA    "        /____\\        "   
 
 typedef struct t_peca
 {
@@ -121,15 +121,225 @@ void inicia_jogo (t_tapete *tapete, t_reserva *reserva)
 
 void imprime_tapete (WINDOW *wtapete, t_tapete *tapete)
 {
-    
+    wclear(wtapete);
+    wattron (wtapete,COLOR_PAIR(TAPETE));
+
+    mvwaddch (wtapete, 0 , 0  , ACS_ULCORNER);   /*imprime os cantos*/
+    mvwaddch (wtapete, 0 , 157, ACS_URCORNER);
+    mvwaddch (wtapete, 18, 0  , ACS_LLCORNER);
+    mvwaddch (wtapete, 18, 157, ACS_LRCORNER);
+
+    int i,j;
+    for (i=1 ; i<157 ; i++)
+    {
+        mvwaddch (wtapete, 0 , i, ACS_HLINE);
+        mvwaddch (wtapete, 18, i, ACS_HLINE);
+    }                                           
+    for (i=1 ; i<18 ; i++)
+    {
+        mvwaddch (wtapete, i, 0  , ACS_VLINE);
+        mvwaddch (wtapete, i, 157, ACS_VLINE);
+    }
+
+    for (i=1 ; i<157 ; i++)
+    {
+        for (j=1 ; j<18 ; j++)
+        {
+            mvwaddch (wtapete, j, i, ' ');
+        }
+    }                  
+    wattroff(wtapete,COLOR_PAIR(TAPETE));       /*imprimiu o tapete, falta as pecas em cima dele*/
+
+    wattron (wtapete,COLOR_PAIR(PECA));
+    int comeco = 67 - 11*tapete->quant_pecas;
+    for (i=0 ; i<tapete->quant_pecas ; i++)
+    {
+        if (tapete->linha_pecas[i]->virada == 1)        /*peca virada*/
+        {
+            int j;
+            mvwaddch (wtapete, 5 , comeco+i*22   , ACS_ULCORNER);
+            mvwaddch (wtapete, 5 , comeco+i*22+21, ACS_URCORNER);
+            mvwaddch (wtapete, 13, comeco+i*22   , ACS_LLCORNER);
+            mvwaddch (wtapete, 13, comeco+i*22+21, ACS_LRCORNER);
+            for (j=1 ; j<21 ; j++)
+            {
+                mvwaddch (wtapete, 5 , comeco+i*22+j, ACS_HLINE);
+                mvwaddch (wtapete, 13, comeco+i*22+j, ACS_HLINE);
+            }                                                     
+            for (j=1 ; j<18 ; j++)
+            {
+                mvwaddch (wtapete, j, comeco+i*22   , ACS_VLINE);
+                mvwaddch (wtapete, j, comeco+i*22+21, ACS_VLINE);
+            }                                                    
+        }
+        else
+        {
+            if (tapete->linha_pecas[i]->desenho == COROA)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, "          /\\          "  );
+                mvwprintw (wtapete, 6 , comeco+i*22, "         /  \\         "  );
+                mvwprintw (wtapete, 7 , comeco+i*22, "|\\       \\  /       /|" );
+                mvwprintw (wtapete, 8 , comeco+i*22, "| \\  |\\  _||_  /|  / |" );
+                mvwprintw (wtapete, 9 , comeco+i*22, "|  \\_| \\/    \\/ |_/  |");
+                mvwprintw (wtapete, 10, comeco+i*22, "\\                    /"  );
+                mvwprintw (wtapete, 11, comeco+i*22, "/___              ___\\"  );
+                mvwprintw (wtapete, 12, comeco+i*22, "    \\___      ___/    "  );
+                mvwprintw (wtapete, 13, comeco+i*22, "        \\____/        "  );
+            }
+            else if (tapete->linha_pecas[i]->desenho == ESTANDARTE)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, " /\\                   " );
+                mvwprintw (wtapete, 6 , comeco+i*22, "/  \\                  " );
+                mvwprintw (wtapete, 7 , comeco+i*22, "\\  /_____             " );
+                mvwprintw (wtapete, 8 , comeco+i*22, " ||\\     \\_____       ");
+                mvwprintw (wtapete, 9 , comeco+i*22, " || \\         \\______" );
+                mvwprintw (wtapete, 10, comeco+i*22, " || |             ___/"  );
+                mvwprintw (wtapete, 11, comeco+i*22, " <> |        ____/    "  );
+                mvwprintw (wtapete, 12, comeco+i*22, " || /  _____/         "  );
+                mvwprintw (wtapete, 13, comeco+i*22, " ||/__/               "  );
+            }
+            else if (tapete->linha_pecas[i]->desenho == ESCUDO)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, " ______        ______ "   );
+                mvwprintw (wtapete, 6 , comeco+i*22, "/      \\__/\\__/      \\");
+                mvwprintw (wtapete, 7 , comeco+i*22, "\\                    /"  );
+                mvwprintw (wtapete, 8 , comeco+i*22, " |                  | "   );
+                mvwprintw (wtapete, 9 , comeco+i*22, " |                  | "   );
+                mvwprintw (wtapete, 10, comeco+i*22, "  \\                /  "  );
+                mvwprintw (wtapete, 11, comeco+i*22, "   |              |   "   );
+                mvwprintw (wtapete, 12, comeco+i*22, "    \\__        __/    "  );
+                mvwprintw (wtapete, 13, comeco+i*22, "       \\______/       "  );
+            }
+            else if (tapete->linha_pecas[i]->desenho == ESPADA)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, "          <>          " );
+                mvwprintw (wtapete, 6 , comeco+i*22, "       ___||___       " );
+                mvwprintw (wtapete, 7 , comeco+i*22, "       \\______/       ");
+                mvwprintw (wtapete, 8 , comeco+i*22, "         |  |         " );
+                mvwprintw (wtapete, 9 , comeco+i*22, "         |  |         " );
+                mvwprintw (wtapete, 10, comeco+i*22, "         |  |         " );
+                mvwprintw (wtapete, 11, comeco+i*22, "         |  |         " );
+                mvwprintw (wtapete, 12, comeco+i*22, "         \\  /         ");
+                mvwprintw (wtapete, 13, comeco+i*22, "          \\/          ");
+            }
+            else if (tapete->linha_pecas[i]->desenho == CAVALEIRO)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, "/\\\\\\\\\\/////\\_         "      );
+                mvwprintw (wtapete, 6 , comeco+i*22, "\\\\\\\\\\\\\\/)\\\\\\\\\\        ");
+                mvwprintw (wtapete, 7 , comeco+i*22, "///       \\\\\\\\\\___    "       );
+                mvwprintw (wtapete, 8 , comeco+i*22, "\\\\\\  /_     \\\\\\\\\\\\\\___"  );
+                mvwprintw (wtapete, 9 , comeco+i*22, "// \\      \\    \\\\\\\\\\\\\\"   );
+                mvwprintw (wtapete, 10, comeco+i*22, "\\   \\     |       \\\\\\\\"      );
+                mvwprintw (wtapete, 11, comeco+i*22, "/    \\    |\\_       \\\\"        );
+                mvwprintw (wtapete, 12, comeco+i*22, "      \\.  |  \\       \\"         );
+                mvwprintw (wtapete, 13, comeco+i*22, "       \\__/   |______|"           );
+            }
+            else if (tapete->linha_pecas[i]->desenho == MARTELO)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, " _____    __    _____ "   );
+                mvwprintw (wtapete, 6 , comeco+i*22, "/     \\__/  \\__/     \\");
+                mvwprintw (wtapete, 7 , comeco+i*22, "|                    |"   );
+                mvwprintw (wtapete, 8 , comeco+i*22, "|                    |"   );
+                mvwprintw (wtapete, 9 , comeco+i*22, "|     ___.__.__      |"   );
+                mvwprintw (wtapete, 10, comeco+i*22, "\\____/  \\|  |/ \\_____/");
+                mvwprintw (wtapete, 11, comeco+i*22, "         |  |         "   );
+                mvwprintw (wtapete, 12, comeco+i*22, "         |  |         "   );
+                mvwprintw (wtapete, 13, comeco+i*22, "         |__|         "   );
+            }
+            else if (tapete->linha_pecas[i]->desenho == BALANCA)
+            {
+                mvwprintw (wtapete, 5 , comeco+i*22, " _        <>        _ "    );
+                mvwprintw (wtapete, 6 , comeco+i*22, "//  ____  ||  ____  \\\\"  );
+                mvwprintw (wtapete, 7 , comeco+i*22, "\\\\_/  _ \\_||_/ _  \\_//");
+                mvwprintw (wtapete, 8 , comeco+i*22, " \\___/ \\_    _/ \\___/ " );
+                mvwprintw (wtapete, 9 , comeco+i*22, "   |     \\  /     |   "   );
+                mvwprintw (wtapete, 10, comeco+i*22, "  / \\     ||     / \\  "  );
+                mvwprintw (wtapete, 11, comeco+i*22, " /___\\    ||    /___\\ "  );
+                mvwprintw (wtapete, 12, comeco+i*22, " \\___/   _||_   \\___/ "  );
+                mvwprintw (wtapete, 13, comeco+i*22, "        /____\\        "   );
+            }
+        }
+    }
+    wattroff(wtapete,COLOR_PAIR(PECA));
+
+    /*insira aqui a parte dos pontos*/
+
+    wrefresh(wtapete);
 }
 
-int colocar_peca (t_tapete *tapete, t_reserva *reserva) 
+void imprime_reserva (WINDOW *wreserva, t_reserva *reserva)
+{
+    wclear (wreserva);
+    int i,j;
+
+    mvwaddch (wreserva, 0 , 0 , ACS_ULCORNER);
+    mvwaddch (wreserva, 0 , 85, ACS_URCORNER);
+    mvwaddch (wreserva, 4 , 0 , ACS_LLCORNER);
+    mvwaddch (wreserva, 4 , 85, ACS_LRCORNER);
+    for (i=1 ; i<85 ; i++)
+    {
+        mvwaddch (wreserva, 0 , i , ACS_HLINE);
+        mvwaddch (wreserva, 4 , i , ACS_HLINE);
+    }                                                    
+    for (i=1 ; i<4 ; i++)
+    {
+        mvwaddch (wreserva, i, 0 , ACS_VLINE);
+        mvwaddch (wreserva, i, 85, ACS_VLINE);
+    }                                                  /*até aqui, imprimiu a borda da reserva*/                          
+
+    for (i=0 ; i<reserva->quant_pecas ; i++)
+    {
+        mvwaddch (wreserva, 1 , 1+i*12   , ACS_ULCORNER);
+        mvwaddch (wreserva, 1 , 1+i*12+11, ACS_URCORNER);
+        mvwaddch (wreserva, 3 , 1+i*12   , ACS_LLCORNER);
+        mvwaddch (wreserva, 3 , 1+i*12+11, ACS_LRCORNER);
+        mvwaddch (wreserva, 2 , 1+i*12   , ACS_VLINE);
+        mvwaddch (wreserva, 2 , 1+i*12+11, ACS_VLINE);
+
+        for (j=1 ; j<11 ; j++)
+        {
+            mvwaddch (wreserva, 1 , 1+i*12+j, ACS_HLINE);
+            mvwaddch (wreserva, 3 , 1+i*12+j, ACS_HLINE);
+        }
+
+        if (reserva->linha_pecas[i] == COROA)
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Coroa     ");
+        }                                               
+        else if (reserva->linha_pecas[i] == ESTANDARTE)                  
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Estandarte");
+        }                                              
+        else if (reserva->linha_pecas[i] == ESCUDO)     
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Escudo    ");
+        }                                                 
+        else if (reserva->linha_pecas[i] == ESPADA)     
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Espada    ");
+        }                                                 
+        else if (reserva->linha_pecas[i] == CAVALEIRO)     
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Cavaleiro ");
+        }                                                 
+        else if (reserva->linha_pecas[i] == MARTELO)     
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Martelo   ");
+        }                                              
+        else 
+        {
+            mvwprintw (wreserva, 2, 1+i*12, "Balanca   ");
+        }                                                   
+    }                                           
+    wrefresh (wreserva);
+}
+
+int colocar_peca (t_tapete *tapete, t_reserva *reserva, WINDOW *wtapete, WINDOW *wreserva) 
 {
     int i = 0;
     char tecla;
     tecla = getch ();
-    /*imprime_reserva         (reserva);*/
+    imprime_reserva         (wreserva,reserva);
     /*imprime_selecao_reserva (i);*/
     while ((tecla != 'z')&&(tecla != 'x'))  /*laco para escolher qual peca da reserva o jogador deseja*/
     {
@@ -147,7 +357,7 @@ int colocar_peca (t_tapete *tapete, t_reserva *reserva)
                 i--;
             }
         }
-        /*imprime_reserva         (reserva);*/
+        imprime_reserva         (wreserva,reserva);
         /*imprime_selecao_reserva (i);*/
         tecla = getch();
     }
@@ -172,7 +382,7 @@ int colocar_peca (t_tapete *tapete, t_reserva *reserva)
 
         i = 0;  
         
-        /*imprime_tapete         (tapete);*/
+        imprime_tapete         (wtapete,tapete);
         /*imprime_selecao_tapete (i);*/
         tecla = getch();
 
@@ -180,7 +390,7 @@ int colocar_peca (t_tapete *tapete, t_reserva *reserva)
         {
             if (tecla == KEY_RIGHT)             
             {
-                if (i < tapete->quant_pecas-1)
+                if (i < 1)
                 {   
                     i++;
                 }
@@ -192,7 +402,7 @@ int colocar_peca (t_tapete *tapete, t_reserva *reserva)
                     i--;
                 }
             }
-            /*imprime_tapete         (tapete);*/
+            imprime_tapete         (wtapete,tapete);
             /*imprime_selecao_tapete (i);*/
             tecla = getch();
         }
@@ -207,17 +417,24 @@ int colocar_peca (t_tapete *tapete, t_reserva *reserva)
         }
         else if (tecla == 'z')  /*tira a peca da reserva e poe no tapete*/
         {
-            int j = tapete->quant_pecas-1;
-            while (j > i)
+            i = tapete->quant_pecas;
+            if (i == 1)
             {
-                tapete->linha_pecas[j+1]->desenho = tapete->linha_pecas[j]->desenho;
-                tapete->linha_pecas[j+1]->virada  = tapete->linha_pecas[j]->virada;
-                j--;
+                tapete->linha_pecas[i]->desenho = desenho;
+                tapete->linha_pecas[i]->virada  = virada;
             }
-            tapete->linha_pecas[j]->desenho = desenho;
-            tapete->linha_pecas[j]->virada  = virada;
+            else
+            {
+                while (i > 0)
+                {
+                    tapete->linha_pecas[i+1]->desenho = tapete->linha_pecas[i]->desenho;
+                    tapete->linha_pecas[i+1]->virada  = tapete->linha_pecas[i]->virada;
+                    i--;
+                }
+                tapete->linha_pecas[0]->desenho = desenho;
+                tapete->linha_pecas[0]->virada  = virada;
+            }
             tapete->quant_pecas++;
-        
             return 0;
         }
     }
