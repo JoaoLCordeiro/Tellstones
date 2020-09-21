@@ -462,6 +462,8 @@ int main ()
 
     t_tapete  *tapete;
     t_reserva *reserva;
+    tapete = malloc(sizeof(t_tapete));
+    reserva = malloc(sizeof(t_reserva));
     inicia_jogo (tapete, reserva);
 
     char tecla;
